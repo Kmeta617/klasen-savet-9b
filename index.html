@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Класен съвет · 9. „Б" клас</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B2A4A;
+  --ink-soft:#33415C;
+  --paper:#F1ECE0;
+  --paper-dark:#E4DCC8;
+  --paper-line:#CFC6AE;
+  --seal-red:#7A2E2E;
+  --seal-gold:#B08A3E;
+  --forest:#2F4A3A;
+  --slate:#565F6B;
+  --white:#FBF9F3;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(27,42,74,0.05) 1px, transparent 0);
+  background-size:22px 22px;
+  color:var(--ink);
+  font-family:'IBM Plex Sans', sans-serif;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:'IBM Plex Mono', monospace;}
+.display{font-family:'Spectral', serif;}
+a{color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+::selection{background:var(--seal-gold);color:var(--white);}
+
+/* ===== Masthead ===== */
+.masthead{
+  border-bottom:3px double var(--ink);
+  padding:18px 20px 14px;
+  background:var(--paper);
+  position:sticky;top:0;z-index:40;
+}
+.masthead-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.masthead-eyebrow{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);
+  font-family:'IBM Plex Mono',monospace;
+}
+.masthead-title{
+  font-family:'Spectral',serif;font-weight:700;font-size:26px;letter-spacing:.01em;margin:2px 0 0;
+}
+.masthead-title .accent{color:var(--seal-red);font-style:italic;font-weight:600;}
+.masthead-actions{display:flex;gap:8px;align-items:center;}
+.db-banner{
+  background:var(--seal-red);color:var(--white);text-align:center;font-size:12.5px;font-weight:600;
+  padding:7px 12px;letter-spacing:.02em;
+}
+
+/* ===== Layout ===== */
+.wrap{max-width:920px;margin:0 auto;padding:22px 18px 60px;}
+.card{
+  background:var(--white);
+  border:1px solid var(--paper-line);
+  border-radius:2px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 1px 0 rgba(27,42,74,0.04);
+  position:relative;
+}
+.card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg, var(--ink) 0%, var(--ink) 40%, var(--seal-gold) 40%, var(--seal-gold) 100%);
+}
+.card-title{
+  font-family:'Spectral',serif;font-weight:600;font-size:18px;margin:0 0 4px;color:var(--ink);
+}
+.card-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--seal-gold);font-weight:600;}
+.card-sub{font-size:13px;color:var(--slate);margin:0 0 14px;}
+.hr{border:none;border-top:1px solid var(--paper-line);margin:14px 0;}
+
+/* ===== Buttons ===== */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:2px;border:1.5px solid var(--ink);
+  background:var(--ink);color:var(--white);font-weight:600;font-size:13.5px;
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 3px 0 rgba(27,42,74,0.18);}
+.btn:active{transform:translateY(0);box-shadow:none;}
+.btn.secondary{background:transparent;color:var(--ink);}
+.btn.gold{background:var(--seal-gold);border-color:var(--seal-gold);color:var(--white);}
+.btn.red{background:var(--seal-red);border-color:var(--seal-red);color:var(--white);}
+.btn.forest{background:var(--forest);border-color:var(--forest);color:var(--white);}
+.btn.ghost{background:transparent;border-color:var(--paper-line);color:var(--slate);}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn.block{width:100%;justify-content:center;}
+.btn.sm{padding:6px 11px;font-size:12px;}
+
+input,select,textarea{
+  width:100%;padding:9px 11px;border:1.5px solid var(--paper-line);border-radius:2px;
+  background:var(--white);font-family:'IBM Plex Sans',sans-serif;font-size:14px;color:var(--ink);
+}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--seal-gold);outline-offset:1px;border-color:var(--ink);}
+label{display:block;font-size:12px;font-weight:600;color:var(--slate);margin-bottom:4px;letter-spacing:.02em;}
+.field{margin-bottom:12px;}
+
+/* ===== Seal badge (signature element) ===== */
+.seal{
+  width:46px;height:46px;border-radius:50%;
+  border:2px solid var(--seal-gold);
+  background:radial-gradient(circle at 30% 30%, var(--ink-soft), var(--ink) 70%);
+  color:var(--paper);display:flex;align-items:center;justify-content:center;
+  font-family:'Spectral',serif;font-weight:700;font-size:15px;flex-shrink:0;
+  position:relative;
+}
+.seal::after{
+  content:"";position:absolute;inset:4px;border:1px dashed rgba(241,236,224,.35);border-radius:50%;
+}
+.seal.sm{width:32px;height:32px;font-size:11px;}
+.seal.stamped{
+  border-color:var(--forest);
+  animation:stampIn .35s ease;
+}
+@keyframes stampIn{from{transform:scale(1.6) rotate(-14deg);opacity:0;}to{transform:scale(1) rotate(-8deg);opacity:1;}}
+.stamp-mark{
+  display:inline-flex;align-items:center;gap:6px;
+  border:2px solid var(--forest);color:var(--forest);
+  padding:4px 10px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  transform:rotate(-6deg);letter-spacing:.06em;
+}
+.stamp-mark.veto{border-color:var(--seal-red);color:var(--seal-red);}
+.stamp-mark.dispute{border-color:var(--seal-gold);color:#8a6d1f;}
+
+/* ===== Role chips / grid ===== */
+.pill{
+  display:inline-block;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:600;
+  background:var(--paper-dark);color:var(--ink-soft);letter-spacing:.02em;
+}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+@media(max-width:640px){.grid2,.grid3{grid-template-columns:1fr;}}
+
+.member-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--paper-dark);}
+.member-row:last-child{border-bottom:none;}
+.member-name{font-weight:600;font-size:14px;}
+.member-role{font-size:12px;color:var(--slate);}
+
+/* ===== Ballot ===== */
+.ballot-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;}
+.ballot-btn{
+  padding:16px 6px;border-radius:3px;border:2px solid var(--paper-line);background:var(--white);
+  font-weight:700;font-size:13px;letter-spacing:.02em;text-align:center;color:var(--ink);
+  transition:all .12s;
+}
+.ballot-btn.za{border-color:var(--forest);color:var(--forest);}
+.ballot-btn.za:hover{background:var(--forest);color:var(--white);}
+.ballot-btn.protiv{border-color:var(--seal-red);color:var(--seal-red);}
+.ballot-btn.protiv:hover{background:var(--seal-red);color:var(--white);}
+.ballot-btn.vazd{border-color:var(--slate);color:var(--slate);}
+.ballot-btn.vazd:hover{background:var(--slate);color:var(--white);}
+.ballot-btn.chosen{background:var(--ink);color:var(--white);border-color:var(--ink);}
+
+.tally-bar-row{margin:8px 0;}
+.tally-label{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:3px;}
+.tally-track{height:10px;background:var(--paper-dark);border-radius:5px;overflow:hidden;}
+.tally-fill{height:100%;border-radius:5px;transition:width .4s ease;}
+.tally-fill.za{background:var(--forest);}
+.tally-fill.protiv{background:var(--seal-red);}
+.tally-fill.vazd{background:var(--slate);}
+
+/* ===== Landing role buttons ===== */
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;}
+@media(max-width:560px){.role-grid{grid-template-columns:1fr;}}
+.role-tile{
+  border:1.5px solid var(--paper-line);background:var(--white);border-radius:3px;padding:16px;
+  text-align:left;transition:all .15s;
+}
+.role-tile:hover{border-color:var(--seal-gold);transform:translateY(-2px);box-shadow:0 4px 0 rgba(27,42,74,.08);}
+.role-tile .tile-title{font-family:'Spectral',serif;font-weight:600;font-size:16px;margin-bottom:3px;}
+.role-tile .tile-desc{font-size:12.5px;color:var(--slate);}
+
+/* ===== Empty state ===== */
+.empty{
+  border:1.5px dashed var(--paper-line);border-radius:3px;padding:24px;text-align:center;color:var(--slate);font-size:13.5px;
+}
+
+/* ===== TV mode ===== */
+.tv-body{background:var(--ink);color:var(--paper);min-height:100vh;}
+.tv-wrap{max-width:1100px;margin:0 auto;padding:34px 30px;}
+.tv-title{font-family:'Spectral',serif;font-weight:700;font-size:34px;margin:0;}
+.tv-eyebrow{font-family:'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--seal-gold);font-size:13px;}
+.tv-card{background:rgba(241,236,224,0.06);border:1px solid rgba(176,138,62,0.35);border-radius:4px;padding:22px;margin-top:20px;}
+.tv-qr-box{background:var(--paper);padding:16px;border-radius:4px;display:inline-block;}
+.tv-agenda-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(176,138,62,.2);font-size:16px;}
+.tv-agenda-item.active{color:var(--seal-gold);font-weight:700;}
+
+/* misc */
+.flex{display:flex;}
+.between{justify-content:space-between;}
+.center{align-items:center;}
+.gap8{gap:8px;}
+.gap12{gap:12px;}
+.small{font-size:12px;color:var(--slate);}
+.mt8{margin-top:8px;}
+.mt16{margin-top:16px;}
+.mb0{margin-bottom:0;}
+.warn{color:var(--seal-red);font-weight:600;font-size:13px;}
+.toast{
+  position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+  background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:3px;font-size:13px;font-weight:600;
+  z-index:100;border:1px solid var(--seal-gold);box-shadow:0 4px 14px rgba(0,0,0,.25);
+  animation:toastIn .25s ease;
+}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,10px);}to{opacity:1;transform:translate(-50%,0);}}
+.decision-card{border-left:3px solid var(--ink);padding-left:14px;margin-bottom:14px;}
+.decision-num{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;color:var(--seal-gold);}
+.decision-text{font-weight:600;margin:3px 0 6px;}
+.result-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;letter-spacing:.04em;}
+.result-tag.accepted{background:rgba(47,74,58,.12);color:var(--forest);}
+.result-tag.rejected{background:rgba(122,46,46,.12);color:var(--seal-red);}
+.result-tag.vetoed{background:rgba(122,46,46,.18);color:var(--seal-red);}
+.linklike{background:none;border:none;color:var(--seal-gold);text-decoration:underline;font-size:12.5px;font-weight:600;padding:0;}
+.tabbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.tab{padding:7px 13px;border-radius:14px;border:1.5px solid var(--paper-line);background:var(--white);font-size:12.5px;font-weight:600;color:var(--slate);}
+.tab.active{background:var(--ink);border-color:var(--ink);color:var(--white);}
+code.inline{background:var(--paper-dark);padding:2px 6px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+pre.codeblock{
+  background:var(--ink);color:var(--paper);padding:14px;border-radius:3px;font-family:'IBM Plex Mono',monospace;
+  font-size:12px;overflow-x:auto;line-height:1.6;
+}
+ol.steps{padding-left:20px;}
+ol.steps li{margin-bottom:10px;font-size:13.5px;line-height:1.5;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* =========================================================
+   DATABASE CONNECTION
+   ---------------------------------------------------------
+   This platform stores no data of its own — it needs a real,
+   free database so every device (teacher's TV, students'
+   phones) reads and writes the SAME live data once this file
+   is hosted on GitHub Pages (or anywhere else on the web).
+
+   Set FIREBASE_DB_URL below to your own free Firebase Realtime
+   Database URL BEFORE you publish to GitHub. Full instructions
+   are also shown inside the app if this is left unconfigured.
+   ========================================================= */
+const FIREBASE_DB_URL = "ВАШИЯТ_FIREBASE_URL_ТУК"; // <-- заменете, напр. "https://klasen-savet-9b-default-rtdb.europe-west1.firebasedatabase.app"
+
+let dbHealthy = true;
+function isDbConfigured(){
+  return typeof FIREBASE_DB_URL === 'string' && /^https:\/\/.+firebasedatabase\.app$/.test(FIREBASE_DB_URL.trim());
+}
+function dbBase(){ return FIREBASE_DB_URL.trim().replace(/\/$/,''); }
+
+async function dbGet(path){
+  if(!isDbConfigured()) return null;
+  try{
+    const res = await fetch(dbBase()+'/'+path+'.json', {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    dbHealthy = true;
+    return await res.json();
+  }catch(e){ console.error('dbGet', path, e); dbHealthy = false; return null; }
+}
+async function dbPut(path, value){
+  if(!isDbConfigured()) return false;
+  try{
+    const res = await fetch(dbBase()+'/'+path+'.json', {
+      method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(value)
+    });
+    dbHealthy = res.ok;
+    return res.ok;
+  }catch(e){ console.error('dbPut', path, e); dbHealthy = false; return false; }
+}
+async function dbPatch(path, obj){
+  if(!isDbConfigured()) return false;
+  try{
+    const res = await fetch(dbBase()+'/'+path+'.json', {
+      method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify(obj)
+    });
+    dbHealthy = res.ok;
+    return res.ok;
+  }catch(e){ console.error('dbPatch', path, e); dbHealthy = false; return false; }
+}
+/* Firebase keys can't contain . # $ [ ] / — sanitize names used as path segments. */
+function fbKey(s){ return String(s||'').trim().replace(/[.#$\[\]\/]/g, '_'); }
+
+/* =========================================================
+   CONSTANTS
+   ========================================================= */
+const ROLES = [
+  {id:'president',      name:'Председател',                              dept:null},
+  {id:'vp',              name:'Заместник-председател',                    dept:null},
+  {id:'secretary',       name:'Генерален секретар',                       dept:null},
+  {id:'dir_finance',     name:'Директор на дирекция „Финанси"',           dept:'finance'},
+  {id:'dir_discipline',  name:'Директор на дирекция „Дисциплина"',        dept:'discipline'},
+  {id:'dir_sport',       name:'Директор на дирекция „Спорт и здраве"',    dept:'sport'},
+];
+const DEPTS = {
+  finance:{label:'Дирекция „Финанси"', roleId:'dir_finance'},
+  discipline:{label:'Дирекция „Дисциплина"', roleId:'dir_discipline'},
+  sport:{label:'Дирекция „Спорт и здраве"', roleId:'dir_sport'},
+};
+function roleById(id){ return ROLES.find(r=>r.id===id); }
+function initials(name){
+  if(!name) return '?';
+  const parts = name.trim().split(/\s+/);
+  return (parts[0][0]+(parts[1]?parts[1][0]:'')).toUpperCase();
+}
+function nowISO(){ return new Date().toISOString(); }
+function fmtDate(iso){
+  if(!iso) return '—';
+  const d = new Date(iso);
+  return d.toLocaleDateString('bg-BG',{day:'2-digit',month:'2-digit',year:'numeric'})+' · '+d.toLocaleTimeString('bg-BG',{hour:'2-digit',minute:'2-digit'});
+}
+function uid(){ return Math.random().toString(36).slice(2,9); }
+
+/* =========================================================
+   APP STATE (in-memory; login does not persist across reloads
+   by design — no browser storage is used, only the database)
+   ========================================================= */
+const state = {
+  config: null,
+  session: null,
+  votes: {},
+  decisions: [],
+  appointments: [],
+  financeLog: [],
+  disciplineLog: [],
+  election: null,
+  currentUser: null, // {kind:'council'|'director_member'|'roster'|'teacher', roleId?, name, dept?}
+  view: 'loading',
+  pollTimer: null,
+  toastMsg: null,
+};
+
+function toast(msg){
+  state.toastMsg = msg;
+  render();
+  setTimeout(()=>{ state.toastMsg=null; render(); }, 2600);
+}
+
+/* =========================================================
+   DATA LOADERS
+   ---- decisions / appointments / financeLog / disciplineLog
+   are stored in the database as maps keyed by id (so two people
+   adding entries at once never overwrite each other) and are
+   converted to sorted arrays here for easy rendering. ----
+   ========================================================= */
+function mapToSortedArray(map, dateField){
+  if(!map) return [];
+  return Object.values(map).sort((a,b)=> new Date(b[dateField]||0) - new Date(a[dateField]||0));
+}
+async function loadAll(){
+  state.config = await dbGet('config');
+  if(state.config){
+    state.session = await dbGet('session');
+    state.decisions = mapToSortedArray(await dbGet('decisions'), 'timestamp');
+    state.appointments = mapToSortedArray(await dbGet('appointments'), 'date');
+    state.financeLog = mapToSortedArray(await dbGet('financeLog'), 'date');
+    state.disciplineLog = mapToSortedArray(await dbGet('disciplineLog'), 'date');
+    state.election = await dbGet('election');
+    if(state.session){
+      state.votes = await dbGet('votes/'+state.session.id) || {};
+    }
+  }
+}
+async function refreshLive(){
+  // lighter refresh used by polling — only volatile / live-updating data
+  const s = await dbGet('session');
+  state.session = s || state.session;
+  state.decisions = mapToSortedArray(await dbGet('decisions'), 'timestamp');
+  if(state.session){
+    state.votes = await dbGet('votes/'+state.session.id) || {};
+  }
+  state.election = await dbGet('election');
+  render();
+}
+function startPolling(){
+  stopPolling();
+  state.pollTimer = setInterval(refreshLive, 2500);
+}
+function stopPolling(){
+  if(state.pollTimer){ clearInterval(state.pollTimer); state.pollTimer=null; }
+}
+
+/* =========================================================
+   DEFAULT CONFIG
+   ========================================================= */
+function blankConfig(){
+  return {
+    school:'ПГ „Христо Ботев" — гр. Попово',
+    className:'9. „Б" клас',
+    teacherName:'',
+    teacherPin:'1234',
+    councilYear: String(new Date().getFullYear())+'/'+String(new Date().getFullYear()+1),
+    mandateStart: nowISO(),
+    mandateExtendedMonths:0,
+    members:{ president:'', vp:'', secretary:'', dir_finance:'', dir_discipline:'', dir_sport:'' },
+    directorates:{ finance:[], discipline:[], sport:[] },
+    roster:[],
+    setupDone:false,
+  };
+}
+
+/* =========================================================
+   RENDER ROOT
+   ========================================================= */
+function render(){
+  const app = document.getElementById('app');
+  if(state.view==='tv'){
+    app.innerHTML = renderTV();
+    if(!document._qrDone){ setTimeout(drawQR, 30); }
+    return;
+  }
+  app.innerHTML = renderChrome();
+}
+
+function renderChrome(){
+  let body = '';
+  if(state.view==='connect') body = renderConnect();
+  else if(state.view==='loading') body = `<div class="wrap"><div class="empty">Зареждане на съвета…</div></div>`;
+  else if(state.view==='setup') body = renderSetup();
+  else if(state.view==='landing') body = renderLanding();
+  else if(state.view==='login') body = renderLogin();
+  else if(state.view==='dashboard') body = renderDashboard();
+  return `
+    ${renderMasthead()}
+    <div class="wrap">${body}</div>
+    ${state.toastMsg? `<div class="toast">${escapeHtml(state.toastMsg)}</div>`:''}
+  `;
+}
+
+function renderMasthead(){
+  const cfg = state.config;
+  return `
+  ${(state.view!=='connect' && !dbHealthy)? `<div class="db-banner">⚠ Няма връзка с базата данни в момента — проверете интернет връзката. Записите не се губят, опитайте отново.</div>`:''}
+  <div class="masthead">
+    <div class="masthead-inner">
+      <div>
+        <div class="masthead-eyebrow">${cfg? escapeHtml(cfg.school):'Класен съвет'}</div>
+        <div class="masthead-title">Класен съвет <span class="accent">· ${cfg? escapeHtml(cfg.className):'9. „Б" клас'}</span></div>
+      </div>
+      <div class="masthead-actions">
+        ${state.currentUser? `
+          <span class="pill">${escapeHtml(state.currentUser.name)}</span>
+          <button class="btn ghost sm" onclick="logout()">Изход</button>
+        ` : (cfg&&cfg.setupDone? `<button class="btn secondary sm" onclick="goto('login')">Вход</button>`:'')}
+        ${cfg&&cfg.setupDone? `<button class="btn gold sm" onclick="openTV()">Екран за прожекция</button>`:''}
+      </div>
+    </div>
+  </div>`;
+}
+
+/* =========================================================
+   CONNECT SCREEN — shown until a real database is configured
+   ========================================================= */
+function renderConnect(){
+  return `
+  <div class="card">
+    <div class="card-eyebrow">Първа стъпка · еднократно</div>
+    <h2 class="card-title">Свържете безплатна база данни</h2>
+    <p class="card-sub">Платформата трябва да работи изцяло самостоятелно — без сървър на Anthropic/Claude зад нея. За да могат телефоните на учениците и телевизорът в класната стая да виждат едни и същи данни в реално време, файлът трябва да е свързан към собствена, безплатна база данни на Google Firebase. Отнема около 5 минути и не изисква карта или плащане.</p>
+
+    <ol class="steps">
+      <li>Отворете <strong>console.firebase.google.com</strong> и влезте с Google профил. Натиснете „Add project" / „Създай проект", дайте му произволно име (напр. <code class="inline">klasen-savet-9b</code>) и завършете съветника (можете да изключите Google Analytics).</li>
+      <li>В менюто вляво отворете <strong>Build → Realtime Database</strong> (не Firestore!) и натиснете „Create Database". Изберете най-близкия регион и стартирайте в „test mode".</li>
+      <li>Отворете таб <strong>Rules</strong> на базата данни и поставете следните правила (позволяват на платформата да чете и пише, без отделен акаунт за всеки ученик):
+        <pre class="codeblock">{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}</pre>
+        <span class="small">Данните не са лична или чувствителна информация (само дневен ред, гласове и решения на класа), но правилата са отворени — не съхранявайте с тази платформа нищо поверително.</span>
+      </li>
+      <li>Копирайте адреса на базата данни отгоре на страницата — изглежда така: <code class="inline">https://klasen-savet-9b-default-rtdb.europe-west1.firebasedatabase.app</code></li>
+      <li>Отворете тукущия HTML файл в текстов редактор, намерете реда близо до началото на <code class="inline">&lt;script&gt;</code>:
+        <pre class="codeblock">const FIREBASE_DB_URL = "ВАШИЯТ_FIREBASE_URL_ТУК";</pre>
+        и заменете стойността с копирания адрес (в кавички). Запазете файла.
+      </li>
+      <li>Качете файла в хранилището си в GitHub (или го отворете локално) и презаредете страницата — тя ще ви поведе през учредяването на съвета.</li>
+    </ol>
+
+    <button class="btn block gold" onclick="location.reload()">Опитах — презареди страницата</button>
+  </div>`;
+}
+
+/* =========================================================
+   SETUP WIZARD
+   ========================================================= */
+function renderSetup(){
+  const cfg = state._draftConfig || (state.config? JSON.parse(JSON.stringify(state.config)) : blankConfig());
+  state._draftConfig = cfg;
+  const rosterText = (cfg.roster||[]).join('\n');
+  return `
+  <div class="card">
+    <div class="card-eyebrow">Учредителен акт</div>
+    <h2 class="card-title">Настройка на Класния съвет</h2>
+    <p class="card-sub">Попълва се от класния ръководител. Данните се пазят в базата данни — виждат ги всички устройства, отворили тази платформа.</p>
+
+    <div class="grid2">
+      <div class="field"><label>Училище</label><input id="f_school" value="${attr(cfg.school)}"></div>
+      <div class="field"><label>Клас</label><input id="f_class" value="${attr(cfg.className)}"></div>
+      <div class="field"><label>Име на класния ръководител</label><input id="f_teacher" value="${attr(cfg.teacherName)}"></div>
+      <div class="field"><label>ПИН на класния ръководител (4 цифри, за вето/настройки)</label><input id="f_pin" value="${attr(cfg.teacherPin)}" maxlength="6"></div>
+    </div>
+
+    <hr class="hr">
+    <div class="card-eyebrow">Ръководство на съвета</div>
+    <p class="small mt8">Въведете имената на учениците, избрани за всяка длъжност.</p>
+    <div class="grid2 mt8">
+      ${ROLES.map(r=>`
+        <div class="field">
+          <label>${escapeHtml(r.name)}</label>
+          <input id="f_role_${r.id}" value="${attr(cfg.members[r.id]||'')}" placeholder="Име и фамилия">
+        </div>
+      `).join('')}
+    </div>
+
+    <hr class="hr">
+    <div class="card-eyebrow">Списък на класа</div>
+    <p class="small mt8">По едно име на ред. Използва се за мандата на съвета (100% гласуване за удължаване) и избори.</p>
+    <div class="field mt8"><textarea id="f_roster" rows="7" placeholder="Иван Иванов
+Мария Петрова
+...">${escapeHtml(rosterText)}</textarea></div>
+
+    <div class="flex gap12 mt16">
+      <button class="btn block" onclick="saveSetup()">Запази и учреди съвета</button>
+      ${state.config? `<button class="btn secondary" onclick="state._draftConfig=null;goto('landing')">Отказ</button>`:''}
+    </div>
+  </div>`;
+}
+
+async function saveSetup(){
+  const cfg = state._draftConfig;
+  cfg.school = val('f_school'); cfg.className = val('f_class');
+  cfg.teacherName = val('f_teacher'); cfg.teacherPin = val('f_pin')||'1234';
+  ROLES.forEach(r=> cfg.members[r.id] = val('f_role_'+r.id));
+  cfg.roster = val('f_roster').split('\n').map(s=>s.trim()).filter(Boolean);
+  cfg.setupDone = true;
+  const ok = await dbPut('config', cfg);
+  if(ok){
+    state.config = cfg; state._draftConfig=null;
+    toast('Съветът е учреден.');
+    goto('landing');
+  }else{
+    toast('Възникна грешка при запис. Проверете връзката с базата данни и опитайте пак.');
+  }
+}
+
+/* Editing setup after it already exists requires the teacher PIN. */
+function gotoSetupGated(){
+  if(state.config && state.config.setupDone){
+    const pin = prompt('Въведете ПИН на класния ръководител:');
+    if(pin===null) return;
+    if(pin !== state.config.teacherPin){ toast('Грешен ПИН.'); return; }
+  }
+  goto('setup');
+}
+
+/* =========================================================
+   LANDING
+   ========================================================= */
+function renderLanding(){
+  const cfg = state.config;
+  const openSession = state.session && state.session.status==='open';
+  return `
+  <div class="card">
+    <div class="card-eyebrow">${cfg.councilYear} · Мандат</div>
+    <h2 class="card-title">Добре дошли в платформата на съвета</h2>
+    <p class="card-sub">Съветът осъществява контрол върху дейността на класа. Класният ръководител ${escapeHtml(cfg.teacherName? '('+cfg.teacherName+') ':'')}има право да оспорва и налага вето на решения, противоречащи на правилника на ${escapeHtml(cfg.school)}.</p>
+    ${openSession? `<div class="stamp-mark mt8">● В момента тече заседание</div>`:''}
+  </div>
+
+  <div class="role-grid">
+    <button class="role-tile" onclick="goto('login')">
+      <div class="tile-title">Вход в системата</div>
+      <div class="tile-desc">За членове на съвета, членове на дирекции, класния ръководител или ученици от класа.</div>
+    </button>
+    <button class="role-tile" onclick="openTV()">
+      <div class="tile-title">Екран за прожекция</div>
+      <div class="tile-desc">Отворете на телевизора в класната стая — показва QR код, дневен ред и резултатите на живо.</div>
+    </button>
+  </div>
+
+  <div class="card mt16">
+    <div class="card-eyebrow">Регистър</div>
+    <h3 class="card-title" style="font-size:15px;">Ръководство на съвета</h3>
+    <div class="mt8">
+      ${ROLES.map(r=>`
+        <div class="member-row">
+          <div class="seal sm">${initials(cfg.members[r.id])}</div>
+          <div>
+            <div class="member-name">${escapeHtml(cfg.members[r.id]||'— свободна длъжност —')}</div>
+            <div class="member-role">${escapeHtml(r.name)}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  </div>
+
+  <div class="flex between center">
+    <button class="linklike" onclick="gotoSetupGated()">Настройки на съвета (изисква ПИН)</button>
+    <span class="small mono">Решения до момента: ${state.decisions.length}</span>
+  </div>
+  `;
+}
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+function renderLogin(){
+  const cfg = state.config;
+  const councilOptions = ROLES.map(r=> `<option value="council:${r.id}">${escapeHtml(r.name)} — ${escapeHtml(cfg.members[r.id]||'(няма)')}</option>`).join('');
+  let dirOptions = '';
+  Object.keys(DEPTS).forEach(dept=>{
+    (cfg.directorates[dept]||[]).forEach(name=>{
+      dirOptions += `<option value="dirmember:${dept}:${encodeURIComponent(name)}">${escapeHtml(name)} — член на ${escapeHtml(DEPTS[dept].label)}</option>`;
+    });
+  });
+  const rosterOptions = (cfg.roster||[]).map(n=> `<option value="roster:${encodeURIComponent(n)}">${escapeHtml(n)} — ученик</option>`).join('');
+
+  return `
+  <div class="card">
+    <div class="card-eyebrow">Легитимация</div>
+    <h2 class="card-title">Вход</h2>
+
+    <div class="tabbar">
+      <button class="tab ${state._loginTab!=='teacher'?'active':''}" onclick="state._loginTab='member';render()">Ученик / член на съвета</button>
+      <button class="tab ${state._loginTab==='teacher'?'active':''}" onclick="state._loginTab='teacher';render()">Класен ръководител</button>
+    </div>
+
+    ${state._loginTab==='teacher'? `
+      <div class="field"><label>ПИН</label><input id="f_teacher_pin" type="password" maxlength="6" placeholder="••••"></div>
+      <button class="btn block" onclick="loginTeacher()">Вход като класен ръководител</button>
+    `:`
+      <div class="field">
+        <label>Изберете своето име</label>
+        <select id="f_login_select">
+          <option value="">— изберете —</option>
+          <optgroup label="Ръководство на съвета">${councilOptions}</optgroup>
+          ${dirOptions? `<optgroup label="Членове на дирекции">${dirOptions}</optgroup>`:''}
+          <optgroup label="Ученици от класа">${rosterOptions}</optgroup>
+        </select>
+      </div>
+      <button class="btn block" onclick="loginMember()">Вход</button>
+    `}
+    <div class="mt16"><button class="linklike" onclick="goto('landing')">← Назад</button></div>
+  </div>`;
+}
+
+function loginTeacher(){
+  const pin = val('f_teacher_pin');
+  if(pin !== state.config.teacherPin){ toast('Грешен ПИН.'); return; }
+  state.currentUser = {kind:'teacher', name: state.config.teacherName||'Класен ръководител'};
+  goto('dashboard');
+}
+function loginMember(){
+  const v = val('f_login_select');
+  if(!v){ toast('Моля, изберете име.'); return; }
+  const [kind, a, b] = v.split(':');
+  if(kind==='council'){
+    const role = roleById(a);
+    const name = state.config.members[a];
+    if(!name){ toast('Тази длъжност все още няма назначен ученик.'); return; }
+    state.currentUser = {kind:'council', roleId:a, name, dept:role.dept};
+  } else if(kind==='dirmember'){
+    state.currentUser = {kind:'director_member', dept:a, name: decodeURIComponent(b)};
+  } else if(kind==='roster'){
+    state.currentUser = {kind:'roster', name: decodeURIComponent(a)};
+  }
+  goto('dashboard');
+}
+function logout(){
+  state.currentUser = null;
+  stopPolling();
+  goto('landing');
+}
+
+/* =========================================================
+   DASHBOARD (role aware)
+   ========================================================= */
+function renderDashboard(){
+  const u = state.currentUser;
+  if(!u) { goto('login'); return ''; }
+  startPolling();
+  const isConvener = u.kind==='council' && ['president','vp','secretary'].includes(u.roleId);
+  const isDirector = u.kind==='council' && ['dir_finance','dir_discipline','dir_sport'].includes(u.roleId);
+  let out = '';
+  out += renderAgendaSection(u);
+  if(isConvener) out += renderConvenerPanel(u);
+  if(isDirector) out += renderDirectorPanel(u);
+  if(u.kind==='director_member') out += renderDirectorMemberView(u);
+  if(u.kind==='teacher') out += renderTeacherPanel();
+  out += renderElectionSection(u);
+  out += renderDecisionsLog(u);
+  return out;
+}
+
+function requiredMajorityLabel(m){
+  return {obiknoveno:'обикновено мнозинство', '100%':'100% от класа'}[m]||m;
+}
+/* New-directorate items need 4/5 if the council has 5 or fewer voting
+   members, otherwise 5/6 — resolved against the live member count. */
+function newDirectorateFraction(totalEligible){
+  return totalEligible<=5 ? [4,5] : [5,6];
+}
+function majorityLabelForItem(item){
+  if(!item) return '';
+  if(item.majority==='nova_direkcia'){
+    const n = votingMembersCount();
+    const [num,den] = newDirectorateFraction(n);
+    const need = Math.ceil(n*num/den);
+    return 'предложение за нова дирекция — мнозинство '+num+'/'+den+' ('+need+' от '+n+' членове)';
+  }
+  return requiredMajorityLabel(item.majority||'obiknoveno');
+}
+function votingMembersCount(){
+  return ROLES.filter(r=>state.config.members[r.id]).length;
+}
+/* For normal council items only the 6 council roles vote (by role).
+   For mandate-extension items (100%) the whole class votes (by name),
+   since the rule requires 100% of the class, not just the council. */
+function canVoteOnItem(item, u){
+  if(!item) return false;
+  if(item.majority==='100%') return (state.config.roster||[]).includes(u.name);
+  return u.kind==='council';
+}
+function voterKey(item, u){
+  return item.majority==='100%' ? u.name : u.roleId;
+}
+function eligibleCountFor(item){
+  return item.majority==='100%' ? (state.config.roster||[]).length : votingMembersCount();
+}
+
+/* ---- Agenda / session status shown to everyone ---- */
+function renderAgendaSection(u){
+  const s = state.session;
+  if(!s || s.status==='closed'){
+    return `<div class="card"><div class="card-eyebrow">Заседание</div><h3 class="card-title" style="font-size:16px;">В момента няма открито заседание</h3>
+    <div class="empty mt8">Председателят, заместник-председателят или генералният секретар могат да свикат ново заседание.</div></div>`;
+  }
+  const ackMap = s.ackMembers||{};
+  const ackd = !!ackMap[fbKey(u.name)];
+  const openItem = s.agenda.find(a=>a.id===s.openItemId);
+  const canVote = openItem ? canVoteOnItem(openItem, u) : false;
+  const myVoteKey = openItem ? fbKey(voterKey(openItem,u)) : null;
+  const myVote = (openItem && state.votes[openItem.id]) ? state.votes[openItem.id][myVoteKey] : null;
+
+  let voteBlock = '';
+  if(openItem){
+    const tally = tallyFor(openItem.id);
+    if(canVote){
+      voteBlock = `
+      <div class="mt16">
+        <div class="card-eyebrow">Гласуване по точка</div>
+        <div class="member-name mt8">${escapeHtml(openItem.text)}</div>
+        <div class="small">Изисква се: ${majorityLabelForItem(openItem)}</div>
+        <div class="ballot-btns">
+          <button class="ballot-btn za ${myVote==='за'?'chosen':''}" onclick="castVote('${openItem.id}','за')">За</button>
+          <button class="ballot-btn protiv ${myVote==='против'?'chosen':''}" onclick="castVote('${openItem.id}','против')">Против</button>
+          <button class="ballot-btn vazd ${myVote==='въздържал се'?'chosen':''}" onclick="castVote('${openItem.id}','въздържал се')">Въздържал се</button>
+        </div>
+        ${myVote? `<div class="small mt8">Гласът Ви (${myVote}) е записан. Можете да го промените до приключване на гласуването.</div>`:''}
+      </div>`;
+    } else {
+      const msg = openItem.majority==='100%'
+        ? 'Гласуването по тази точка е за удължаване на мандата и е отворено за целия клас — Вашето име не е в списъка на класа.'
+        : 'Гласуването по точка „'+escapeHtml(openItem.text)+'" тече в момента — правото на глас имат само членовете на съвета.';
+      voteBlock = `<div class="mt16 empty">${msg}</div>`;
+    }
+  }
+
+  return `
+  <div class="card">
+    <div class="card-eyebrow">Заседание · ${fmtDate(s.date)}</div>
+    <h3 class="card-title" style="font-size:16px;">Дневен ред</h3>
+    ${!ackd? `<button class="btn sm gold mt8" onclick="ackAgenda()">Запознах се с дневния ред</button>` : `<span class="pill">✓ Запознат/а сте с дневния ред</span>`}
+    <div class="mt16">
+      ${s.agenda.length? s.agenda.map((a,i)=>`
+        <div class="tv-agenda-item" style="color:${a.id===s.openItemId?'var(--seal-red)':'var(--ink)'};border-bottom-color:var(--paper-dark);">
+          <span>${i+1}. ${escapeHtml(a.text)}</span>
+          <span class="small">${decisionForItem(a.id)? resultTag(decisionForItem(a.id).veto?'вето':decisionForItem(a.id).result):(a.id===s.openItemId?'гласува се…':'')}</span>
+        </div>
+      `).join(''):'<div class="empty">Дневният ред все още не е попълнен.</div>'}
+    </div>
+    ${voteBlock}
+  </div>`;
+}
+function decisionForItem(itemId){
+  return state.decisions.find(d=>d.itemId===itemId);
+}
+function resultTag(r){
+  const cls = r==='приет'?'accepted':(r==='вето'?'vetoed':'rejected');
+  return `<span class="result-tag ${cls}">${r}</span>`;
+}
+function tallyFor(itemId){
+  const v = state.votes[itemId]||{};
+  const t = {за:0, против:0, 'въздържал се':0};
+  Object.values(v).forEach(c=>{ if(t[c]!==undefined) t[c]++; });
+  return t;
+}
+async function ackAgenda(){
+  const s = state.session;
+  if(!s) return;
+  const key = fbKey(state.currentUser.name);
+  const ok = await dbPut('session/ackMembers/'+key, true);
+  if(ok){
+    s.ackMembers = s.ackMembers||{};
+    s.ackMembers[key] = true;
+    render();
+  } else {
+    toast('Грешка при запис. Проверете връзката.');
+  }
+}
+async function castVote(itemId, choice){
+  const u = state.currentUser;
+  const s = state.session;
+  if(!s || s.openItemId!==itemId) return;
+  const item = s.agenda.find(a=>a.id===itemId);
+  if(!item || !canVoteOnItem(item, u)){ toast('Нямате право на глас по тази точка.'); return; }
+  const key = fbKey(voterKey(item, u));
+  if(!key) return;
+  // Writes only this voter's own leaf — safe even if many people vote at once.
+  const ok = await dbPut('votes/'+s.id+'/'+itemId+'/'+key, choice);
+  if(ok){
+    state.votes[itemId] = state.votes[itemId]||{};
+    state.votes[itemId][key] = choice;
+    toast('Гласът е записан: '+choice);
+    render();
+  } else {
+    toast('Грешка при запис на гласа. Проверете връзката и опитайте пак.');
+  }
+}
+
+/* ---- Convener panel (President / VP / Secretary) ---- */
+function renderConvenerPanel(u){
+  const s = state.session;
+  let html = `<div class="card"><div class="card-eyebrow">Управление на заседанието</div>
+  <h3 class="card-title" style="font-size:16px;">Кабинет на ${escapeHtml(roleById(u.roleId).name)}</h3>`;
+
+  if(!s || s.status==='closed'){
+    html += `
+    <p class="small mt8">Свикайте ново заседание и въведете точките от дневния ред.</p>
+    <div class="field mt8"><label>Нови точки (по една на ред)</label><textarea id="f_new_agenda" rows="4" placeholder="Обсъждане на предложение за училищния празник
+Гласуване на такса за подарък"></textarea></div>
+    <label class="mt8">Тип на всички добавени точки</label>
+    <select id="f_agenda_type" onchange="document.getElementById('f_agenda_months_wrap').style.display=this.value==='100%'?'block':'none';">
+      <option value="obiknoveno">Обикновено мнозинство</option>
+      <option value="nova_direkcia">Предложение за нова (4-та) дирекция</option>
+      <option value="100%">Удължаване на мандата на съвета (100% от класа)</option>
+    </select>
+    <div class="field mt8" id="f_agenda_months_wrap" style="display:none;"><label>Удължение с (месеца, 3–5)</label><input id="f_agenda_months" type="number" min="3" max="5" value="3"></div>
+    <button class="btn block mt8" onclick="openSession()">Свикай заседание</button>`;
+  } else {
+    html += `<div class="pill mt8">Заседанието е открито от ${fmtDate(s.date)}</div>`;
+    html += `<div class="small mt8">Запознати с дневния ред: ${Object.keys(s.ackMembers||{}).length} / ${votingMembersCount()}</div>`;
+
+    html += `<div class="field mt16"><label>Добави точка в дневния ред</label><input id="f_add_item" placeholder="Текст на точката"></div>
+    <select id="f_add_item_type" class="mt8" onchange="document.getElementById('f_add_item_months_wrap').style.display=this.value==='100%'?'block':'none';">
+      <option value="obiknoveno">Обикновено мнозинство</option>
+      <option value="nova_direkcia">Предложение за нова (4-та) дирекция</option>
+      <option value="100%">Удължаване на мандата (100% от класа)</option>
+    </select>
+    <div class="field mt8" id="f_add_item_months_wrap" style="display:none;"><label>Удължение с (месеца, 3–5)</label><input id="f_add_item_months" type="number" min="3" max="5" value="3"></div>
+    <button class="btn secondary sm mt8" onclick="addAgendaItem()">Добави точка</button>`;
+
+    html += `<hr class="hr"><div class="card-eyebrow">Точки</div>`;
+    s.agenda.forEach((a,i)=>{
+      const decided = decisionForItem(a.id);
+      const isOpenVote = s.openItemId===a.id;
+      html += `<div class="member-row">
+        <div>
+          <div class="member-name">${i+1}. ${escapeHtml(a.text)}</div>
+          <div class="member-role">${majorityLabelForItem(a)} ${decided? ' · '+decided.number:''}</div>
+        </div>
+        <div class="flex gap8">
+          ${!decided && !isOpenVote && !s.openItemId? `<button class="btn gold sm" onclick="openVote('${a.id}')">Открий гласуване</button>`:''}
+          ${isOpenVote? `<button class="btn red sm" onclick="closeVote('${a.id}')">Приключи гласуването</button>`:''}
+        </div>
+      </div>`;
+    });
+
+    html += `<div class="mt16"><button class="btn secondary sm" onclick="closeSession()">Закрий заседанието</button></div>`;
+  }
+  html += `</div>`;
+  return html;
+}
+
+async function openSession(){
+  const text = val('f_new_agenda');
+  const majority = val('f_agenda_type');
+  const months = majority==='100%' ? Math.min(5,Math.max(3, parseInt(val('f_agenda_months'))||3)) : null;
+  const items = text.split('\n').map(s=>s.trim()).filter(Boolean).map(t=>({id:uid(), text:t, majority, months}));
+  const s = { id: uid(), date: nowISO(), status:'open', agenda: items, ackMembers:{}, openItemId:null };
+  const ok = await dbPut('session', s);
+  if(!ok){ toast('Грешка при свикване. Проверете връзката.'); return; }
+  state.session = s; state.votes = {};
+  toast('Заседанието е свикано.');
+  render();
+}
+async function addAgendaItem(){
+  const text = val('f_add_item');
+  const majority = val('f_add_item_type');
+  const months = majority==='100%' ? Math.min(5,Math.max(3, parseInt(val('f_add_item_months'))||3)) : null;
+  if(!text){ toast('Въведете текст на точката.'); return; }
+  const s = state.session;
+  s.agenda.push({id:uid(), text, majority, months});
+  const ok = await dbPut('session/agenda', s.agenda);
+  if(!ok) toast('Грешка при запис.');
+  render();
+}
+async function openVote(itemId){
+  const s = state.session;
+  s.openItemId = itemId;
+  s.voteOpenedAt = nowISO();
+  await dbPatch('session', {openItemId:itemId, voteOpenedAt:s.voteOpenedAt});
+  render();
+}
+async function closeVote(itemId){
+  const s = state.session;
+  const item = s.agenda.find(a=>a.id===itemId);
+  const tally = tallyFor(itemId);
+  const totalEligible = eligibleCountFor(item);
+  let passed;
+  const maj = item.majority||'obiknoveno';
+  if(maj==='obiknoveno') passed = tally['за'] > tally['против'];
+  else if(maj==='nova_direkcia'){
+    const [num,den] = newDirectorateFraction(totalEligible);
+    passed = tally['за'] >= Math.ceil(totalEligible*num/den);
+  }
+  else if(maj==='100%') passed = totalEligible>0 && tally['за']>=totalEligible && tally['против']===0 && tally['въздържал се']===0;
+
+  // Resolution numbers count existing decisions fresh from the database,
+  // so two closes happening moments apart still get distinct numbers.
+  const existing = await dbGet('decisions') || {};
+  const year = new Date().getFullYear();
+  const decision = {
+    id: uid(), itemId, sessionId:s.id,
+    number: 'Решение № '+(Object.keys(existing).length+1)+'/'+year,
+    text: item.text, majority:maj, majorityLabel: majorityLabelForItem(item), tally,
+    votesDetail: (state.votes[itemId]||{}),
+    result: passed? 'приет':'отхвърлен',
+    signedByPresident: !!state.config.members.president,
+    veto:null, dispute:null, timestamp: nowISO(),
+  };
+  const ok = await dbPut('decisions/'+decision.id, decision);
+  if(ok){
+    state.decisions.unshift(decision);
+  } else {
+    toast('Грешка при запис на решението. Проверете връзката.');
+  }
+
+  if(maj==='100%' && passed && item.months){
+    const newTotal = (state.config.mandateExtendedMonths||0) + item.months;
+    await dbPut('config/mandateExtendedMonths', newTotal);
+    state.config.mandateExtendedMonths = newTotal;
+  }
+
+  s.openItemId = null;
+  await dbPatch('session', {openItemId:null});
+  toast(decision.number+' — '+decision.result+'.');
+  render();
+}
+async function closeSession(){
+  const s = state.session;
+  s.status='closed';
+  await dbPatch('session', {status:'closed'});
+  toast('Заседанието е закрито.');
+  render();
+}
+
+/* ---- Director panels ---- */
+function renderDirectorPanel(u){
+  const dept = u.dept || (roleById(u.roleId)||{}).dept;
+  let html = `<div class="card"><div class="card-eyebrow">${escapeHtml(DEPTS[dept].label)}</div>
+  <h3 class="card-title" style="font-size:16px;">Кабинет на директора</h3>`;
+
+  html += renderDirectorateMembers(dept);
+
+  if(dept==='finance'){
+    html += `<hr class="hr"><div class="card-eyebrow">Определяне на такса / извънредно плащане</div>
+    <div class="grid2 mt8">
+      <div class="field"><label>Основание</label><input id="f_fee_title" placeholder="Напр. Подарък за учител"></div>
+      <div class="field"><label>Сума (лв.)</label><input id="f_fee_amount" type="number" step="0.01"></div>
+    </div>
+    <div class="field"><label>Бележка</label><input id="f_fee_note" placeholder="По желание"></div>
+    <button class="btn forest sm" onclick="addFee()">Определи такса — не подлежи на оспорване</button>
+    <div class="mt16">${renderFinanceLog()}</div>`;
+  }
+  if(dept==='discipline'){
+    html += `<hr class="hr"><div class="card-eyebrow">Дисциплинарен регистър</div>
+    <div class="grid2 mt8">
+      <div class="field"><label>Ученик</label>
+        <select id="f_disc_student">${(state.config.roster||[]).map(n=>`<option>${escapeHtml(n)}</option>`).join('')}</select>
+      </div>
+      <div class="field"><label>Вид</label>
+        <select id="f_disc_type">
+          <option value="забележка">Забележка</option>
+          <option value="отсъствие">Отсъствие</option>
+          <option value="мярка">Дисциплинарна мярка (подлежи на оспорване от кл. ръководител)</option>
+        </select>
+      </div>
+    </div>
+    <div class="field"><label>Бележка</label><input id="f_disc_note" placeholder="Описание"></div>
+    <button class="btn forest sm" onclick="addDiscipline()">Запиши</button>
+    <div class="mt16">${renderDisciplineLog(true)}</div>`;
+  }
+  if(dept==='sport'){
+    html += `<hr class="hr"><div class="card-eyebrow">Наблюдение на часовете по ФВС</div>
+    <div class="grid2 mt8">
+      <div class="field"><label>Ученик</label>
+        <select id="f_sport_student">${(state.config.roster||[]).map(n=>`<option>${escapeHtml(n)}</option>`).join('')}</select>
+      </div>
+      <div class="field"><label>Наблюдение</label><input id="f_sport_note" placeholder="Напр. активно участие / неучастие / нарушение"></div>
+    </div>
+    <button class="btn forest sm" onclick="addSportNote()">Докладвай на председателството</button>
+    <div class="mt16">${renderSportLog()}</div>`;
+  }
+  html += `</div>`;
+  return html;
+}
+function renderDirectorateMembers(dept){
+  const list = state.config.directorates[dept]||[];
+  return `
+  <div class="card-eyebrow mt8">Членове на дирекцията (до 2-ма)</div>
+  <div class="mt8">
+    ${list.length? list.map(n=>`<div class="member-row"><div class="seal sm">${initials(n)}</div><div class="member-name">${escapeHtml(n)}</div></div>`).join(''):'<div class="empty">Все още няма назначени членове.</div>'}
+  </div>
+  ${list.length<2? `
+    <div class="flex gap8 mt8">
+      <select id="f_new_dirmember_${dept}" style="flex:1;">
+        <option value="">— избери ученик —</option>
+        ${(state.config.roster||[]).filter(n=>!list.includes(n)).map(n=>`<option>${escapeHtml(n)}</option>`).join('')}
+      </select>
+      <button class="btn sm gold" onclick="appointDirMember('${dept}')">Назначи</button>
+    </div>
+  `:'<div class="small mt8">Дирекцията е попълнена (макс. 2 члена).</div>'}
+  `;
+}
+async function appointDirMember(dept){
+  const sel = document.getElementById('f_new_dirmember_'+dept);
+  const name = sel.value;
+  if(!name){ toast('Изберете ученик.'); return; }
+  const cfg = state.config;
+  const list = (cfg.directorates[dept]||[]).slice();
+  if(list.length>=2){ toast('Дирекцията вече има двама членове.'); return; }
+  list.push(name);
+  const ok = await dbPut('config/directorates/'+dept, list);
+  if(!ok){ toast('Грешка при запис. Проверете връзката.'); return; }
+  cfg.directorates[dept] = list;
+  const appt = {id:uid(), dept, memberName:name, appointedBy: roleById(state.currentUser.roleId).name, date: nowISO()};
+  await dbPut('appointments/'+appt.id, appt);
+  state.appointments.unshift(appt);
+  toast(name+' е назначен/а с решение в '+DEPTS[dept].label+'.');
+  render();
+}
+function renderFinanceLog(){
+  if(!state.financeLog.length) return '<div class="empty">Все още няма определени такси.</div>';
+  return state.financeLog.map(f=>`
+    <div class="decision-card">
+      <div class="decision-num">${fmtDate(f.date)} · не подлежи на оспорване</div>
+      <div class="decision-text">${escapeHtml(f.title)} — ${escapeHtml(String(f.amount))} лв.</div>
+      ${f.note? `<div class="small">${escapeHtml(f.note)}</div>`:''}
+    </div>`).join('');
+}
+async function addFee(){
+  const title=val('f_fee_title'), amount=val('f_fee_amount'), note=val('f_fee_note');
+  if(!title||!amount){ toast('Попълнете основание и сума.'); return; }
+  const entry = {id:uid(), title, amount, note, date:nowISO(), disputable:false};
+  const ok = await dbPut('financeLog/'+entry.id, entry);
+  if(ok){ state.financeLog.unshift(entry); toast('Таксата е определена.'); render(); }
+  else toast('Грешка при запис.');
+}
+function renderDisciplineLog(withDispute){
+  const u=state.currentUser;
+  if(!state.disciplineLog.length) return '<div class="empty">Няма записи.</div>';
+  return state.disciplineLog.map(d=>`
+    <div class="decision-card">
+      <div class="decision-num">${fmtDate(d.date)} · ${escapeHtml(d.type)}${d.disputable? ' · оспорва се само от класния ръководител':''}</div>
+      <div class="decision-text">${escapeHtml(d.studentName)}</div>
+      ${d.note? `<div class="small">${escapeHtml(d.note)}</div>`:''}
+      ${d.dispute? `<div class="stamp-mark dispute mt8">Оспорено от класния ръководител</div>`:''}
+      ${withDispute && u.kind==='teacher' && d.disputable && !d.dispute? `<button class="btn ghost sm mt8" onclick="disputeDiscipline('${d.id}')">Оспори мярката</button>`:''}
+    </div>`).join('');
+}
+async function addDiscipline(){
+  const studentName=val('f_disc_student'), type=val('f_disc_type'), note=val('f_disc_note');
+  const entry = {id:uid(), studentName, type, note, date:nowISO(), disputable: type==='мярка', dispute:null};
+  const ok = await dbPut('disciplineLog/'+entry.id, entry);
+  if(ok){ state.disciplineLog.unshift(entry); toast('Записано.'); render(); }
+  else toast('Грешка при запис.');
+}
+async function disputeDiscipline(id){
+  const dispute = {date: nowISO(), by: state.currentUser.name};
+  const ok = await dbPatch('disciplineLog/'+id, {dispute});
+  if(ok){
+    const d = state.disciplineLog.find(x=>x.id===id);
+    if(d) d.dispute = dispute;
+    toast('Мярката е оспорена.');
+    render();
+  } else toast('Грешка при запис.');
+}
+function renderSportLog(){
+  const rows = state.disciplineLog.filter(d=>d.type==='спорт');
+  if(!rows.length) return '<div class="empty">Няма записи.</div>';
+  return rows.map(d=>`
+    <div class="decision-card"><div class="decision-num">${fmtDate(d.date)} · ФВС</div>
+    <div class="decision-text">${escapeHtml(d.studentName)}</div><div class="small">${escapeHtml(d.note)}</div></div>`).join('');
+}
+async function addSportNote(){
+  const studentName=val('f_sport_student'), note=val('f_sport_note');
+  const entry = {id:uid(), studentName, type:'спорт', note, date:nowISO(), disputable:false, dispute:null};
+  const ok = await dbPut('disciplineLog/'+entry.id, entry);
+  if(ok){ state.disciplineLog.unshift(entry); toast('Докладвано на председателството.'); render(); }
+  else toast('Грешка при запис.');
+}
+
+/* ---- Directorate (non-council) member view ---- */
+function renderDirectorMemberView(u){
+  return `<div class="card">
+    <div class="card-eyebrow">${escapeHtml(DEPTS[u.dept].label)}</div>
+    <h3 class="card-title" style="font-size:16px;">Работен кабинет на дирекцията</h3>
+    <p class="small">Вие подпомагате директора с предложения. Членовете на дирекции нямат право на глас в заседанията на съвета.</p>
+    ${u.dept==='finance'? renderFinanceLog(): u.dept==='discipline'? renderDisciplineLog(false): renderSportLog()}
+  </div>`;
+}
+
+/* ---- Teacher panel ---- */
+function renderTeacherPanel(){
+  let html = `<div class="card"><div class="card-eyebrow">Класен ръководител</div>
+  <h3 class="card-title" style="font-size:16px;">Надзор и вето</h3>
+  <p class="small">Имате право да оспорвате решения на съвета и да налагате вето, ако решение нарушава правилника на ${escapeHtml(state.config.school)}.</p>`;
+
+  html += `<hr class="hr"><div class="card-eyebrow">Мандат на съвета</div>
+  <div class="small mt8">Начало: ${fmtDate(state.config.mandateStart)} · Удължение до момента: ${state.config.mandateExtendedMonths||0} месеца</div>
+  <p class="small mt8">Удължение с 3–5 месеца се прилага автоматично, щом точка от тип „Удължаване на мандата" бъде приета със 100% гласуване от целия клас. Точката се добавя от председателството в дневния ред.</p>`;
+
+  html += `<hr class="hr"><div class="card-eyebrow">Избори</div>
+  ${renderElectionAdmin()}`;
+
+  html += `</div>`;
+  return html;
+}
+
+/* ---- Decisions log with veto / dispute ---- */
+function renderDecisionsLog(u){
+  let html = `<div class="card"><div class="card-eyebrow">Протоколен регистър</div><h3 class="card-title" style="font-size:16px;">Решения на съвета</h3>`;
+  if(!state.decisions.length){ html += '<div class="empty">Все още няма приети решения.</div></div>'; return html; }
+  state.decisions.forEach(d=>{
+    html += `<div class="decision-card">
+      <div class="decision-num">${d.number} · ${fmtDate(d.timestamp)} · ${d.majorityLabel||requiredMajorityLabel(d.majority)}</div>
+      <div class="decision-text">${escapeHtml(d.text)}</div>
+      <div class="flex gap8 center">
+        ${resultTag(d.veto? 'вето': d.result)}
+        <span class="small">За: ${d.tally['за']} · Против: ${d.tally['против']} · Възд.: ${d.tally['въздържал се']}</span>
+      </div>
+      ${d.signedByPresident? `<div class="stamp-mark mt8">Подписано от Председателя</div>`:''}
+      ${d.veto? `<div class="stamp-mark veto mt8">ВЕТО — ${escapeHtml(d.veto.reason)}</div>`:''}
+      ${d.dispute? `<div class="stamp-mark dispute mt8">Оспорено от класния ръководител — ${escapeHtml(d.dispute.reason)}</div>`:''}
+      ${u.kind==='teacher' && !d.veto? `
+        <div class="flex gap8 mt8">
+          <button class="btn red sm" onclick="vetoDecision('${d.id}')">Налагам вето</button>
+          ${!d.dispute? `<button class="btn ghost sm" onclick="disputeDecision('${d.id}')">Оспорвам</button>`:''}
+        </div>`:''}
+    </div>`;
+  });
+  html += `</div>`;
+  return html;
+}
+async function vetoDecision(id){
+  const reason = prompt('Мотив за вето (нарушение на правилника на училището):');
+  if(!reason) return;
+  const veto = {reason, date: nowISO()};
+  const ok = await dbPatch('decisions/'+id, {veto});
+  if(ok){
+    const d = state.decisions.find(x=>x.id===id);
+    if(d) d.veto = veto;
+    toast('Наложено е вето.');
+    render();
+  } else toast('Грешка при запис.');
+}
+async function disputeDecision(id){
+  const reason = prompt('Основание за оспорване:');
+  if(!reason) return;
+  const dispute = {reason, date: nowISO()};
+  const ok = await dbPatch('decisions/'+id, {dispute});
+  if(ok){
+    const d = state.decisions.find(x=>x.id===id);
+    if(d) d.dispute = dispute;
+    toast('Решението е оспорено.');
+    render();
+  } else toast('Грешка при запис.');
+}
+
+/* ---- Elections ----
+   candidates are plain names; each voter writes only their own ballot
+   leaf, and the tally is computed by counting ballots — so many
+   students voting at the same moment can never overwrite each other. */
+function tallyElection(contest){
+  const t = {};
+  (contest.candidates||[]).forEach(n=> t[n]=0);
+  Object.values(contest.ballots||{}).forEach(cand=>{ if(t[cand]!==undefined) t[cand]++; });
+  return t;
+}
+function renderElectionAdmin(){
+  const el = state.election || {contests:{}};
+  let html = `<div class="small mt8">Изборите за ново ръководство се свикват във втория или третия час на класа. Стартирайте състезание по длъжност — целият клас гласува, печели най-много гласове.</div>`;
+  html += `<div class="grid2 mt8">
+    <select id="f_election_role">${ROLES.map(r=>`<option value="${r.id}">${escapeHtml(r.name)}</option>`).join('')}</select>
+    <input id="f_election_candidates" placeholder="Кандидати, разделени със запетая">
+  </div>
+  <button class="btn gold sm mt8" onclick="startElection()">Стартирай гласуване за длъжност</button>`;
+
+  const roleIds = Object.keys(el.contests||{});
+  if(roleIds.length){
+    html += '<hr class="hr">';
+    roleIds.forEach(rid=>{
+      const c = el.contests[rid];
+      const t = tallyElection(c);
+      const total = Object.values(t).reduce((a,b)=>a+b,0);
+      html += `<div class="mt8"><div class="member-name">${escapeHtml(roleById(rid).name)}</div>`;
+      (c.candidates||[]).forEach(name=>{
+        const votes = t[name]||0;
+        const pct = total? Math.round(votes/total*100):0;
+        html += `<div class="tally-bar-row"><div class="tally-label"><span>${escapeHtml(name)}</span><span>${votes} гласа</span></div>
+        <div class="tally-track"><div class="tally-fill za" style="width:${pct}%;"></div></div></div>`;
+      });
+      html += `<button class="btn ghost sm mt8" onclick="applyElection('${rid}')">Приложи резултата (задай за длъжност)</button></div>`;
+    });
+  }
+  return html;
+}
+async function startElection(){
+  const roleId = val('f_election_role');
+  const names = val('f_election_candidates').split(',').map(s=>s.trim()).filter(Boolean);
+  if(names.length<1){ toast('Въведете поне един кандидат.'); return; }
+  const contest = {candidates:names, ballots:{}};
+  const ok = await dbPut('election/contests/'+roleId, contest);
+  if(ok){
+    state.election = state.election || {contests:{}};
+    state.election.contests = state.election.contests || {};
+    state.election.contests[roleId] = contest;
+    toast('Гласуването е стартирано.');
+    render();
+  } else toast('Грешка при запис.');
+}
+async function applyElection(roleId){
+  const el = state.election;
+  const c = el && el.contests && el.contests[roleId];
+  if(!c) return;
+  const t = tallyElection(c);
+  const names = Object.keys(t);
+  if(!names.length) return;
+  const winner = names.reduce((a,b)=> t[b]>t[a]? b:a, names[0]);
+  const ok = await dbPut('config/members/'+roleId, winner);
+  if(ok){
+    state.config.members[roleId] = winner;
+    await dbPut('election/contests/'+roleId, null);
+    if(el.contests) delete el.contests[roleId];
+    toast(winner+' е избран/а за '+roleById(roleId).name+'.');
+    render();
+  } else toast('Грешка при запис.');
+}
+function renderElectionSection(u){
+  const el = state.election;
+  if(!el || !Object.keys(el.contests||{}).length) return '';
+  const roster = state.config.roster||[];
+  const isVoter = roster.includes(u.name);
+  let html = `<div class="card"><div class="card-eyebrow">Избори в ход</div><h3 class="card-title" style="font-size:16px;">Гласуване за ново ръководство</h3>`;
+  Object.keys(el.contests).forEach(rid=>{
+    const c = el.contests[rid];
+    const already = !!(c.ballots && c.ballots[fbKey(u.name)]);
+    html += `<div class="mt8"><div class="member-name">${escapeHtml(roleById(rid).name)}</div>`;
+    if(!isVoter){
+      html += `<div class="small">Само ученици от списъка на класа гласуват в изборите.</div>`;
+    } else if(already){
+      html += `<div class="pill">✓ Вече гласувахте</div>`;
+    } else {
+      (c.candidates||[]).forEach(name=>{
+        html += `<button class="btn secondary sm mt8" style="margin-right:6px;" onclick="voteElection('${rid}','${encodeURIComponent(name)}')">${escapeHtml(name)}</button>`;
+      });
+    }
+    html += `</div>`;
+  });
+  html += `</div>`;
+  return html;
+}
+async function voteElection(roleId, candName){
+  const name = decodeURIComponent(candName);
+  const el = state.election;
+  const c = el.contests[roleId];
+  const key = fbKey(state.currentUser.name);
+  if(c.ballots && c.ballots[key]){ toast('Вече сте гласували.'); return; }
+  const ok = await dbPut('election/contests/'+roleId+'/ballots/'+key, name);
+  if(ok){
+    c.ballots = c.ballots||{};
+    c.ballots[key]=name;
+    toast('Гласът е записан.');
+    render();
+  } else toast('Грешка при запис.');
+}
+
+/* =========================================================
+   TV / PROJECTION MODE
+   ========================================================= */
+function openTV(){
+  state.view='tv';
+  document._qrDone=false;
+  render();
+  startPolling();
+}
+function renderTV(){
+  const cfg = state.config;
+  const s = state.session;
+  let body = '';
+  if(!s || s.status==='closed'){
+    body = `
+    <div class="tv-card">
+      <div class="tv-eyebrow">Готови за заседание</div>
+      <p style="font-size:18px;max-width:640px;">В момента няма открито заседание. Когато председателят свика заседанието, тук ще се появи QR код за влизане и дневният ред.</p>
+    </div>`;
+  } else {
+    const openItem = s.agenda.find(a=>a.id===s.openItemId);
+    body = `
+    <div class="tv-card">
+      <div class="flex between center" style="align-items:flex-start;">
+        <div>
+          <div class="tv-eyebrow">Сканирайте, за да влезете</div>
+          <div id="qrHolder" class="tv-qr-box mt8"></div>
+        </div>
+        <div style="flex:1;padding-left:30px;">
+          <div class="tv-eyebrow">Дневен ред</div>
+          ${s.agenda.map((a,i)=>`<div class="tv-agenda-item ${a.id===s.openItemId?'active':''}">
+            <span>${i+1}. ${escapeHtml(a.text)}</span>
+            <span>${decisionForItem(a.id)? (decisionForItem(a.id).veto?'вето':decisionForItem(a.id).result) : (a.id===s.openItemId?'гласува се':'')}</span>
+          </div>`).join('')}
+          <div style="margin-top:14px;font-size:14px;opacity:.8;">Запознати с дневния ред: ${Object.keys(s.ackMembers||{}).length} / ${votingMembersCount()}</div>
+        </div>
+      </div>
+    </div>`;
+    if(openItem){
+      const t = tallyFor(openItem.id);
+      const total = t['за']+t['против']+t['въздържал се'];
+      body += `<div class="tv-card">
+        <div class="tv-eyebrow">Гласува се сега</div>
+        <div style="font-size:22px;font-weight:700;font-family:'Spectral',serif;margin:6px 0 14px;">${escapeHtml(openItem.text)}</div>
+        ${['за','против','въздържал се'].map(k=>{
+          const pct = total? Math.round(t[k]/total*100):0;
+          const cls = k==='за'?'za':k==='против'?'protiv':'vazd';
+          return `<div class="tally-bar-row"><div class="tally-label" style="color:${cls==='za'?'#8FBFA0':cls==='protiv'?'#D99A9A':'#C8C2B4'};"><span>${k}</span><span>${t[k]}</span></div>
+          <div class="tally-track" style="background:rgba(241,236,224,.15);"><div class="tally-fill ${cls}" style="width:${pct}%;"></div></div></div>`;
+        }).join('')}
+      </div>`;
+    }
+    const lastDecision = state.decisions[0];
+    if(lastDecision && !openItem){
+      body += `<div class="tv-card"><div class="tv-eyebrow">Последно решение</div>
+      <div style="font-size:20px;font-weight:700;font-family:'Spectral',serif;">${lastDecision.number}: ${escapeHtml(lastDecision.text)}</div>
+      <div style="margin-top:6px;font-size:16px;color:var(--seal-gold);">${(lastDecision.veto?'ВЕТО':lastDecision.result).toUpperCase()}</div></div>`;
+    }
+  }
+  return `
+  <div class="tv-body">
+    <div class="tv-wrap">
+      <div class="tv-eyebrow">${escapeHtml(cfg.school)}</div>
+      <h1 class="tv-title">Класен съвет · ${escapeHtml(cfg.className)}</h1>
+      ${body}
+      <div style="margin-top:26px;"><button class="btn ghost sm" onclick="stopPolling();state.view='landing';document._qrDone=false;render();">← Изход от режим „Прожекция"</button></div>
+    </div>
+  </div>`;
+}
+function drawQR(){
+  const holder = document.getElementById('qrHolder');
+  if(!holder) return;
+  holder.innerHTML='';
+  try{
+    new QRCode(holder, { text: window.location.href, width:150, height:150, colorDark:'#1B2A4A', colorLight:'#F1ECE0' });
+    document._qrDone = true;
+  }catch(e){ holder.innerHTML = '<div class="small" style="color:#1B2A4A;">QR не се зареди — споделете връзката ръчно.</div>'; }
+}
+
+/* =========================================================
+   NAV / UTIL
+   ========================================================= */
+function goto(view){
+  state.view = view;
+  if(view!=='dashboard' && view!=='tv') stopPolling();
+  render();
+}
+function val(id){ const el = document.getElementById(id); return el? el.value.trim() : ''; }
+function attr(s){ return escapeHtml(s||'').replace(/"/g,'&quot;'); }
+function escapeHtml(s){
+  if(s===undefined||s===null) return '';
+  return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* =========================================================
+   BOOT
+   ========================================================= */
+(async function boot(){
+  if(!isDbConfigured()){
+    state.view = 'connect';
+    render();
+    return;
+  }
+  await loadAll();
+  if(!state.config || !state.config.setupDone){
+    state.view = 'setup';
+  } else {
+    state.view = 'landing';
+  }
+  render();
+})();
+</script>
+</body>
+</html>
